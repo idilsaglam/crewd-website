@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Install AI agents, skills and teams for Claude Code, Cursor and Gemini CLI. Keep your setup in Git and share it with your team."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content="Crewd — AI agents for your codebase" />
+    <meta
+      property="og:description"
+      content="Install an agent or a whole team with one command. Crewd handles the tool formats and keeps your team on the same versions."
+    />
+    <meta property="og:type" content="website" />
+    <title>Crewd — AI agents for your codebase</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111218'/%3E%3Cpath d='M16 6l3 7 7 3-7 3-3 7-3-7-7-3 7-3z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="assets/site.css" />
+    <script type="module" src="assets/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Crewd home"
+        ><span class="brand-mark" aria-hidden="true">✦</span><span>crewd</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#product">Product</a><a href="#workflow">How it works</a><a href="#faq">FAQ</a>
+      </nav>
+      <a
+        class="button button-dark header-cta"
+        href="https://crewd.dev/#cta-title"
+        target="_blank"
+        rel="noopener"
+        >Join the waitlist</a
+      >
+    </header>
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <span class="eyebrow beta-label"
+            ><span aria-hidden="true"></span>Private beta · Launching soon</span
+          >
+          <h1 id="hero-title">Add an AI crew<br />to your codebase.</h1>
+          <p>
+            Install a reviewer or a whole team of agents with one command. Crewd brings their skills
+            along and writes the files Claude Code, Cursor and Gemini CLI need.
+          </p>
+          <a
+            class="button button-dark"
+            href="https://crewd.dev/#cta-title"
+            target="_blank"
+            rel="noopener"
+            >Join the waitlist</a
+          >
+        </div>
+        <div class="hero-scene" id="hero-demo">
+          <div class="scene-art" aria-hidden="true"></div>
+          <div
+            class="demo-window"
+            role="group"
+            data-install-demo
+            aria-label="Illustrative Crewd installation walkthrough"
+          >
+            <div class="window-bar">
+              <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span
+              ><span class="window-path">~/projects/my-app</span
+              ><span class="demo-caption">Installation example</span>
+            </div>
+            <div class="demo-layout">
+              <aside class="file-tree" aria-label="Native output files">
+                <span class="tree-title">MY-APP</span>
+                <div>⌄ .claude</div>
+                <div class="tree-indent">agents/</div>
+                <div>⌄ .cursor</div>
+                <div class="tree-indent">rules/</div>
+                <div>GEMINI.md</div>
+                <div class="tree-file">crewd.json</div>
+                <div class="tree-file">crewd.lock</div>
+              </aside>
+              <div class="demo-main">
+                <div class="demo-toolbar">
+                  <div class="demo-tabs" role="group" aria-label="Choose an installation example">
+                    <button
+                      type="button"
+                      class="demo-tab is-active"
+                      data-mode="agent"
+                      aria-pressed="true"
+                    >
+                      One agent</button
+                    ><button type="button" class="demo-tab" data-mode="team" aria-pressed="false">
+                      A whole team
+                    </button>
+                  </div>
+                  <button type="button" class="text-button replay" data-replay>Replay demo</button>
+                </div>
+                <div class="demo-command" data-command-copy>
+                  <span class="prompt" aria-hidden="true">$</span
+                  ><code id="hire-command">crewd hire @alice/reviewer</code
+                  ><button
+                    type="button"
+                    class="copy-button"
+                    data-copy
+                    aria-label="Copy example command"
+                  >
+                    Copy</button
+                  ><span class="sr-only" data-copy-status role="status" aria-atomic="true"></span>
+                </div>
+                <div class="crew-display" id="crew-display">
+                  <div class="agent-tile">
+                    <span class="agent-letter">R</span>
+                    <div><strong>Reviewer</strong><span>Agent + 2 skills</span></div>
+                    <span class="package-address">@alice/reviewer@1.4.2</span>
+                  </div>
+                </div>
+                <div class="terminal-output" id="terminal-output" aria-live="polite">
+                  <div class="terminal-line muted">Resolving package and skills…</div>
+                  <div class="terminal-line">
+                    <span class="check">✓</span><code>.claude/agents/reviewer.md</code>
+                  </div>
+                  <div class="terminal-line">
+                    <span class="check">✓</span><code>.cursor/rules/crewd-reviewer.mdc</code>
+                  </div>
+                  <div class="terminal-line">
+                    <span class="check">✓</span><code>GEMINI.md</code
+                    ><span class="muted">section added</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="window-status">
+              <span class="status-native">Native files for all three tools</span
+              ><span>Example packages shown</span>
+            </div>
+          </div>
+          <div class="host-strip">
+            <span>Compiled natively for</span><strong>Claude Code</strong
+            ><span class="host-divider"></span><strong>Cursor</strong
+            ><span class="host-divider"></span><strong>Gemini CLI</strong>
+          </div>
+        </div>
+      </section>
+      <section class="section product-section" id="product" aria-labelledby="product-title">
+        <div class="section-heading centered">
+          <span class="eyebrow">Agents, skills and teams</span>
+          <h2 id="product-title">Start with the job<br />you need done.</h2>
+          <p>
+            Install an agent for a specific job or a team with several roles. Each is a versioned
+            package, with the skills it needs included.
+          </p>
+        </div>
+        <div class="package-types">
+          <article class="package-type">
+            <span class="type-number">01 / Agent</span>
+            <div class="type-symbol agent-symbol" aria-hidden="true">✦</div>
+            <h3>Agents take on a role.</h3>
+            <p>
+              An agent’s package defines its role, instructions, tool hints and compatible models.
+              Choose the agent for the job you have in mind.
+            </p>
+            <span class="type-footnote">Role and instructions</span>
+          </article>
+          <article class="package-type">
+            <span class="type-number">02 / Skill</span>
+            <div class="type-symbol skill-symbol" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <h3>Skills explain how to do it.</h3>
+            <p>
+              A skill is a reusable procedure in <code>SKILL.md</code>. It can include scripts and
+              references, and different agents can use it.
+            </p>
+            <span class="type-footnote">Procedures, scripts and references</span>
+          </article>
+          <article class="package-type">
+            <span class="type-number">03 / Team</span>
+            <div class="type-symbol team-symbol" aria-hidden="true">
+              <i></i><i></i><i></i><i></i>
+            </div>
+            <h3>Teams bring the roles together.</h3>
+            <p>
+              Hire a named team to install its members in one go. Each agent’s role is passed to
+              your coding tool for delegation.
+            </p>
+            <span class="type-footnote">Multiple agents with defined roles</span>
+          </article>
+        </div>
+        <div class="version-note">
+          <span>Choose a package and a version.</span><code>@namespace/name@version</code>
+        </div>
+      </section>
+
+      <section class="section native-section" aria-labelledby="native-title">
+        <div class="native-copy">
+          <span class="eyebrow">Claude Code, Cursor and Gemini CLI</span>
+          <h2 id="native-title">Use the same agent<br />across your tools.</h2>
+          <p>
+            You shouldn’t have to translate an agent every time you switch tools. Crewd writes
+            Claude Code agent files, Cursor rules and GEMINI.md sections from the same package.
+          </p>
+          <p class="secondary-copy">
+            Team roles go into the tool’s own delegation descriptions, so there’s no extra
+            orchestrator to set up.
+          </p>
+        </div>
+        <div class="native-visual">
+          <div class="package-origin">
+            <span class="origin-mark" aria-hidden="true">✦</span>
+            <div><span>Agent package</span><code>@alice/reviewer@1.4.2</code></div>
+            <span class="origin-status">Package</span>
+          </div>
+          <div class="compile-line" aria-hidden="true"><span></span></div>
+          <div class="native-panel" data-native-demo>
+            <div class="host-tabs" role="group" aria-label="Choose a native output">
+              <button type="button" data-host="claude" class="is-active" aria-pressed="true">
+                Claude Code</button
+              ><button type="button" data-host="cursor" aria-pressed="false">Cursor</button
+              ><button type="button" data-host="gemini" aria-pressed="false">Gemini CLI</button>
+            </div>
+            <div class="native-result" aria-live="polite">
+              <span class="file-label" id="native-label">Native agent file</span
+              ><code id="native-path">.claude/agents/reviewer.md</code>
+              <p id="native-description">Saved in Claude Code’s agents directory.</p>
+              <span class="native-tag"><span aria-hidden="true">✓</span> Compiled by Crewd</span>
+            </div>
+            <div class="native-panel-footer">Example generated files</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="workflow-section" id="workflow" aria-labelledby="workflow-title">
+        <div class="workflow-inner">
+          <div class="workflow-header">
+            <div>
+              <span class="eyebrow">For teams sharing a repo</span>
+              <h2 id="workflow-title">Give every teammate<br />the same setup.</h2>
+            </div>
+            <p>
+              You’ve found a crew that works. Commit the manifest and lockfile so the rest of your
+              team can install exactly what you’re using.
+            </p>
+          </div>
+          <div class="workflow-steps">
+            <article>
+              <span class="step-index">01</span>
+              <h3>Pick an agent or team.</h3>
+              <p>
+                Run <code>crewd hire</code> for an agent or <code>crewd hire team</code> for a team.
+                Crewd resolves the skills they depend on.
+              </p>
+              <div class="workflow-command"><code>crewd hire team @acme/backend-squad</code></div>
+              <span class="step-meta">Example: 4 agents and 6 skills</span>
+            </article>
+            <article>
+              <span class="step-index">02</span>
+              <h3>Commit the two files.</h3>
+              <p>
+                <code>crewd.json</code> records your setup. <code>crewd.lock</code> pins package
+                versions and hashes. Commit both with the code.
+              </p>
+              <div class="repo-files">
+                <div>
+                  <span class="repo-file-icon" aria-hidden="true">{ }</span><code>crewd.json</code
+                  ><span>Manifest</span>
+                </div>
+                <div>
+                  <span class="repo-file-icon" aria-hidden="true">#</span><code>crewd.lock</code
+                  ><span>Versions + SHA-256</span>
+                </div>
+              </div>
+            </article>
+            <article>
+              <span class="step-index">03</span>
+              <h3>Your team runs one command.</h3>
+              <p>
+                <code>crewd install</code> installs the same crew from the lockfile. Teammates can
+                skip moving folders around or comparing agent files by hand.
+              </p>
+              <div class="workflow-command">
+                <code>crewd install</code><span class="workflow-check" aria-hidden="true">✓</span>
+              </div>
+              <span class="step-meta">The same versions and hashes</span>
+            </article>
+          </div>
+          <div class="workflow-bottom">
+            <span class="pin-icon" aria-hidden="true">✧</span>
+            <p>Every package is pinned by version and SHA-256 hash in the lockfile.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section customize-section" aria-labelledby="customize-title">
+        <div class="section-heading centered">
+          <span class="eyebrow">Project-specific skills and memory</span>
+          <h2 id="customize-title">Adapt an agent<br />to your project.</h2>
+          <p>
+            The package is a starting point. Add the skills your repo needs, and keep what the agent
+            learns about your code.
+          </p>
+        </div>
+        <div class="customize-row">
+          <div
+            class="skill-visual"
+            aria-label="Extra repository skills stay attached to your hired agent"
+          >
+            <div class="skill-file">
+              <span class="file-fold" aria-hidden="true"></span><code>SKILL.md</code
+              ><span>Procedure</span>
+              <div class="file-strokes" aria-hidden="true"><i></i><i></i><i></i></div>
+            </div>
+            <span class="skill-attachment" aria-hidden="true">+</span>
+            <div class="skill-agent">
+              <span class="agent-letter">R</span><strong>Reviewer</strong><span>Hired agent</span>
+            </div>
+            <div class="skill-caption">Your extra skills · This repository</div>
+          </div>
+          <div class="feature-copy">
+            <span class="eyebrow">Custom skills</span>
+            <h3>Add skills without<br />forking the package.</h3>
+            <p>
+              Use <code>crewd teach</code> to add skills to an agent in this repo. When you upgrade
+              the package, your additions stay attached.
+            </p>
+            <span class="feature-detail">These additions apply only to this repository.</span>
+          </div>
+        </div>
+        <div class="customize-row memory-row">
+          <div class="feature-copy">
+            <span class="eyebrow">Agent memory</span>
+            <h3>Keep what your<br />agent learns.</h3>
+            <p>
+              Each agent keeps dated notes about the codebase in a memory file. Commit that file so
+              teammates get the same project context.
+            </p>
+            <span class="feature-detail">Shared through Git, alongside the code.</span>
+          </div>
+          <div class="memory-visual">
+            <div class="memory-top">
+              <span class="memory-dot" aria-hidden="true"></span><span>Agent memory</span
+              ><span>In your repo</span>
+            </div>
+            <div class="memory-sheet">
+              <div class="memory-entry">
+                <span class="memory-bullet" aria-hidden="true"></span
+                ><span>Dated codebase learnings</span>
+                <div class="memory-strokes" aria-hidden="true"><i></i><i></i></div>
+              </div>
+              <div class="memory-entry">
+                <span class="memory-bullet" aria-hidden="true"></span
+                ><span>Project conventions</span>
+                <div class="memory-strokes" aria-hidden="true"><i></i><i></i></div>
+              </div>
+              <div class="memory-sync">
+                <span aria-hidden="true">✓</span> Committed with your code
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="review-note">
+          <span class="review-symbol" aria-hidden="true">!</span>
+          <div>
+            <h3>Review scripts before you use them.</h3>
+            <p>
+              A skill can include scripts. If Crewd detects them, it points you to
+              <code>crewd interview</code> so you can review what you’re installing.
+            </p>
+          </div>
+          <code>crewd interview</code>
+        </aside>
+      </section>
+
+      <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="faq-heading">
+          <span class="eyebrow">Questions about Crewd</span>
+          <h2 id="faq-title">Before you<br />install.</h2>
+          <p>How installation, upgrades and access work.</p>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>
+              What happens when I hire an agent?<span class="faq-plus" aria-hidden="true"></span>
+            </summary>
+            <p>
+              Crewd downloads the package, resolves its skills and writes the native files for your
+              coding tools. It records the package version and SHA-256 hash in
+              <code>crewd.lock</code>.
+            </p>
+          </details>
+          <details>
+            <summary>
+              Which tools does it support?<span class="faq-plus" aria-hidden="true"></span>
+            </summary>
+            <p>
+              Claude Code, Cursor and Gemini CLI. Crewd compiles the same package into each tool’s
+              native format.
+            </p>
+          </details>
+          <details>
+            <summary>
+              How do agents in a team work together?<span
+                class="faq-plus"
+                aria-hidden="true"
+              ></span>
+            </summary>
+            <p>
+              Crewd installs each member and compiles its role into your coding tool’s delegation
+              descriptions. The tool handles delegation; there’s no separate Crewd orchestrator.
+            </p>
+          </details>
+          <details>
+            <summary>
+              Will upgrades remove my custom skills?<span
+                class="faq-plus"
+                aria-hidden="true"
+              ></span>
+            </summary>
+            <p>
+              Skills you add with <code>crewd teach</code> stay attached when you upgrade the
+              package. Those additions belong to this repository.
+            </p>
+          </details>
+          <details>
+            <summary>Can I try it now?<span class="faq-plus" aria-hidden="true"></span></summary>
+            <p>
+              Crewd is in private beta. Join the waitlist to request early access. The package names
+              and CLI walkthroughs here are product examples.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="closing-section" aria-labelledby="closing-title">
+        <div class="closing-art" aria-hidden="true"></div>
+        <div class="closing-copy">
+          <span class="eyebrow">Private beta · Launching soon</span>
+          <h2 id="closing-title">Bring a crew to<br />your next project.</h2>
+          <p>
+            Join the waitlist for early access. We’re preparing a launch catalog of 50 curated
+            agents and skills.
+          </p>
+          <a
+            class="button button-dark"
+            href="https://crewd.dev/#cta-title"
+            target="_blank"
+            rel="noopener"
+            >Join the waitlist</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a class="brand" href="#top" aria-label="Crewd home"
+          ><span class="brand-mark" aria-hidden="true">✦</span><span>crewd</span></a
+        >
+        <p>A registry and CLI for<br />AI agents, skills and teams.</p>
+        <div class="footer-links">
+          <a href="#product">Product</a><a href="#workflow">How it works</a><a href="#faq">FAQ</a
+          ><a href="mailto:hello@crewd.dev">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Crewd</span><span>Private beta. Launching soon.</span
+        ><a href="https://crewd.dev/" target="_blank" rel="noopener">crewd.dev</a>
+      </div>
+    </footer>
+  </body>
+</html>

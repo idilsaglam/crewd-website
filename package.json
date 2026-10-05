@@ -1,0 +1,21 @@
+{
+  "name": "crewd-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static Crewd marketing website",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "format": "prettier --write .",
+    "check": "prettier --check . && node --check dist/assets/main.js",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "devDependencies": {
+    "jsdom": "30.1.2",
+    "prettier": "3.9.9"
+  }
+}
