@@ -36,7 +36,7 @@ test('signup links retain the real waitlist destination', (t) => {
   const dom = new JSDOM(html);
   t.after(() => dom.window.close());
   const signup = [...dom.window.document.querySelectorAll('a')].filter(
-    (anchor) => anchor.textContent.trim() === 'Join the waitlist',
+    (anchor) => anchor.textContent.trim() === 'Join the beta waitlist',
   );
   assert.equal(signup.length, 3);
   assert.ok(signup.every((anchor) => anchor.href === 'https://crewd.dev/#cta-title'));

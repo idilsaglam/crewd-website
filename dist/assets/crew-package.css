@@ -1,0 +1,222 @@
+.product-section {
+  padding: 52px 0;
+}
+.product-section .section-heading h2 {
+  margin-bottom: 0;
+}
+.crew-package {
+  margin-top: 22px;
+  padding: 16px 28px 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.package-caption {
+  display: flex;
+  justify-content: flex-end;
+}
+.package-caption .example-label {
+  font-size: 11px;
+}
+.package-stage {
+  position: relative;
+  height: 290px;
+  max-width: 860px;
+  margin: auto;
+  isolation: isolate;
+}
+.package-core {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: 3;
+  width: 250px;
+  padding: 18px;
+  transform: translateX(-50%);
+  text-align: center;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 10px;
+}
+.package-core h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.package-core code {
+  color: #cacbd6;
+  font-size: 12px;
+}
+.package-connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  color: #d4d7e2;
+  pointer-events: none;
+}
+.package-connections path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+.package-role-labels {
+  position: absolute;
+  top: 147px;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.package-role-labels li {
+  position: relative;
+  z-index: 2;
+  padding: 16px 0;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+}
+.package-role-labels li::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin: 0 auto 12px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.package-skills {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.package-sheets {
+  display: flex;
+  padding-left: 6px;
+}
+.package-sheets span {
+  width: 26px;
+  height: 33px;
+  margin-left: -6px;
+  border: 1px solid #dce0e9;
+  border-radius: 3px;
+  background: #f4f5f9;
+}
+.package-summary {
+  margin: 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  color: var(--subtle);
+  font-size: 12px;
+}
+.package-inspect {
+  border-top: 1px solid var(--line);
+}
+.package-inspect summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  list-style: none;
+}
+.package-inspect summary::-webkit-details-marker {
+  display: none;
+}
+.package-inspect summary > span {
+  font-size: 18px;
+}
+.package-inspect[open] summary > span {
+  transform: rotate(45deg);
+}
+.package-inspect-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  padding: 8px 0 20px;
+}
+.package-inspect-content h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.package-inspect-content p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.package-inspect-content .package-install-command {
+  grid-column: 1 / -1;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+@media (max-width: 800px) {
+  .package-inspect-content {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+@media (max-width: 680px) {
+  .product-section {
+    padding: 40px 0;
+  }
+  .product-section .section-heading h2 span {
+    display: block;
+  }
+  .crew-package {
+    margin-top: 20px;
+    padding: 17px 17px 0;
+  }
+  .package-stage {
+    height: 350px;
+  }
+  .package-core {
+    top: 16px;
+    width: 218px;
+    padding: 16px;
+  }
+  .package-core h3 {
+    font-size: 17px;
+  }
+  .package-core code {
+    font-size: 11px;
+  }
+  .package-role-labels {
+    top: 128px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .package-role-labels li {
+    font-size: 14px;
+  }
+  .package-skills {
+    bottom: 20px;
+    gap: 12px;
+    font-size: 12px;
+  }
+  .package-sheets span {
+    width: 23px;
+    height: 30px;
+  }
+  .package-inspect summary {
+    min-height: 48px;
+  }
+}

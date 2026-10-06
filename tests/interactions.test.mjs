@@ -29,32 +29,42 @@ async function settle() {
   await new Promise((resolve) => setImmediate(resolve));
 }
 
-test('install demo switches team and agent commands, files and pressed state together', (t) => {
+test('install demo switches team and agent commands, output and pressed state together', (t) => {
   const { document, install } = fixture(t);
   initInstallDemo(install);
-  install.querySelector('[data-mode="team"]').click();
 
   assert.equal(
     document.querySelector('#hire-command').textContent,
     'crewd hire team @acme/backend-squad',
   );
   assert.deepEqual(
-    [...document.querySelectorAll('.agent-tile strong')].map((node) => node.textContent),
+    [...install.querySelectorAll('.agent-tile strong')].map((node) => node.textContent),
     ['Architect', 'Implementer', 'Reviewer', 'Release notes'],
   );
   assert.equal(selectedButtons(install, 'data-mode').length, 1);
   assert.equal(selectedButtons(install, 'data-mode')[0].dataset.mode, 'team');
-  assert.match(document.querySelector('#terminal-output').textContent, /crewd interview/);
+  assert.match(document.querySelector('#terminal-output').textContent, /Package versions saved/);
+  assert.equal(
+    document.querySelector('#install-summary').textContent,
+    '4 agents · 6 included skills',
+  );
 
   install.querySelector('[data-mode="agent"]').click();
-  assert.equal(document.querySelectorAll('.agent-tile').length, 1);
+  assert.equal(install.querySelectorAll('.agent-tile').length, 1);
   assert.equal(document.querySelector('#hire-command').textContent, 'crewd hire @alice/reviewer');
   assert.match(
     document.querySelector('#terminal-output').textContent,
-    /\.claude\/agents\/reviewer\.md/,
+    /Claude Code, Cursor and Gemini CLI/,
   );
-  assert.match(document.querySelector('#terminal-output').textContent, /GEMINI\.md/);
   assert.equal(selectedButtons(install, 'data-mode')[0].dataset.mode, 'agent');
+  assert.equal(
+    document.querySelector('#install-summary').textContent,
+    '1 agent · 2 included skills · v1.4.2',
+  );
+
+  install.querySelector('[data-mode="team"]').click();
+  assert.equal(install.querySelectorAll('.agent-tile').length, 4);
+  assert.match(document.querySelector('#terminal-output').textContent, /Package versions saved/);
 });
 
 test('replay preserves the current mode and respects reduced motion', (t) => {
@@ -77,10 +87,10 @@ test('install controls work when animation APIs are unavailable and detach clean
   const { install } = fixture(t);
   const dispose = initInstallDemo(install);
   install.querySelector('[data-replay]').click();
-  assert.equal(install.querySelectorAll('.agent-tile').length, 1);
+  assert.equal(install.querySelectorAll('.agent-tile').length, 4);
   dispose();
-  install.querySelector('[data-mode="team"]').click();
-  assert.equal(install.querySelectorAll('.agent-tile').length, 1);
+  install.querySelector('[data-mode="agent"]').click();
+  assert.equal(install.querySelectorAll('.agent-tile').length, 4);
 });
 
 test('native output controls show each tool’s path and select a single button', (t) => {
@@ -111,10 +121,10 @@ test('copy uses the currently selected command and announces success', async (t)
   });
   initInstallDemo(install);
   initCommandCopy(copy);
-  install.querySelector('[data-mode="team"]').click();
+  install.querySelector('[data-mode="agent"]').click();
   copy.querySelector('[data-copy]').click();
   await settle();
-  assert.deepEqual(values, ['crewd hire team @acme/backend-squad']);
+  assert.deepEqual(values, ['crewd hire @alice/reviewer']);
   assert.equal(copy.querySelector('[data-copy]').textContent, 'Copied');
   assert.equal(copy.querySelector('[role="status"]').textContent, 'Command copied to clipboard.');
 });
@@ -134,7 +144,7 @@ for (const clipboard of ['missing', 'rejected']) {
     initCommandCopy(copy);
     copy.querySelector('[data-copy]').click();
     await settle();
-    assert.equal(window.getSelection().toString(), 'crewd hire @alice/reviewer');
+    assert.equal(window.getSelection().toString(), 'crewd hire team @acme/backend-squad');
     assert.equal(copy.querySelector('[data-copy]').textContent, 'Select command');
     assert.match(copy.querySelector('[role="status"]').textContent, /Command selected/);
   });

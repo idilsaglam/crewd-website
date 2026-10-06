@@ -2,33 +2,33 @@
 const INSTALL_EXAMPLES = {
   agent: {
     command: 'crewd hire @alice/reviewer',
+    summary: '1 agent · 2 included skills · v1.4.2',
     agents: [
       {
         initial: 'R',
         name: 'Reviewer',
         detail: 'Agent + 2 skills',
         address: '@alice/reviewer@1.4.2',
+        role: 'reviewer',
       },
     ],
     output: [
-      { text: 'Resolving package and skills…', muted: true },
-      { text: '.claude/agents/reviewer.md', marker: '✓' },
-      { text: '.cursor/rules/crewd-reviewer.mdc', marker: '✓' },
-      { text: 'GEMINI.md', marker: '✓', detail: 'section added' },
+      { text: 'Ready for Claude Code, Cursor and Gemini CLI', marker: '✓' },
+      { text: 'Package versions saved for your team', marker: '✓' },
     ],
   },
   team: {
     command: 'crewd hire team @acme/backend-squad',
+    summary: '4 agents · 6 included skills',
     agents: [
-      { initial: 'A', name: 'Architect' },
-      { initial: 'I', name: 'Implementer' },
-      { initial: 'R', name: 'Reviewer' },
-      { initial: 'N', name: 'Release notes' },
+      { initial: 'A', name: 'Architect', role: 'architect' },
+      { initial: 'I', name: 'Implementer', role: 'implementer' },
+      { initial: 'R', name: 'Reviewer', role: 'reviewer' },
+      { initial: 'N', name: 'Release notes', role: 'release-notes' },
     ],
     output: [
-      { text: 'Hired: architect, implementer, reviewer, release-notes', marker: '✓' },
-      { text: 'Compiled for Claude Code, Cursor and Gemini CLI', marker: '✓' },
-      { text: 'Scripts detected — run crewd interview to review', marker: '!' },
+      { text: 'Ready for Claude Code, Cursor and Gemini CLI', marker: '✓' },
+      { text: 'Package versions saved for your team', marker: '✓' },
     ],
   },
 };
@@ -36,10 +36,12 @@ const INSTALL_EXAMPLES = {
 function createAgentTile(document, agent) {
   const tile = document.createElement('div');
   tile.className = 'agent-tile';
+  tile.dataset.role = agent.role;
 
   const initial = document.createElement('span');
   initial.className = 'agent-letter';
   initial.textContent = agent.initial;
+  initial.setAttribute('aria-hidden', 'true');
 
   const content = document.createElement('div');
   const name = document.createElement('strong');
@@ -72,6 +74,7 @@ function createOutputLine(document, entry) {
     const marker = document.createElement('span');
     marker.className = 'check';
     marker.textContent = entry.marker;
+    marker.setAttribute('aria-hidden', 'true');
     line.append(marker);
   }
 
@@ -99,11 +102,12 @@ export function initInstallDemo(root) {
   const crew = root.querySelector('#crew-display');
   const output = root.querySelector('#terminal-output');
   const replay = root.querySelector('[data-replay]');
+  const summary = root.querySelector('#install-summary');
   const buttons = [...root.querySelectorAll('[data-mode]')];
 
   if (!command || !crew || !output || !replay) return () => {};
 
-  let mode = 'agent';
+  let mode = 'team';
 
   function render(nextMode) {
     if (!Object.hasOwn(INSTALL_EXAMPLES, nextMode)) return;
@@ -117,6 +121,7 @@ export function initInstallDemo(root) {
     });
 
     command.textContent = example.command;
+    if (summary) summary.textContent = example.summary;
     crew.classList.toggle('is-team', mode === 'team');
     crew.replaceChildren(...example.agents.map((agent) => createAgentTile(document, agent)));
     output.replaceChildren(...example.output.map((entry) => createOutputLine(document, entry)));
