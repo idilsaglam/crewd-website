@@ -1,3 +1,5 @@
+import { createMotionController } from './motion.js?v=619bc6750a4a';
+
 const NATIVE_OUTPUTS = {
   claude: {
     label: 'Native agent file',
@@ -22,13 +24,16 @@ export function initNativeOutputs(root) {
   const label = root.querySelector('#native-label');
   const path = root.querySelector('#native-path');
   const description = root.querySelector('#native-description');
+  const result = root.querySelector('.native-result');
   const buttons = [...root.querySelectorAll('[data-host]')];
 
   if (!label || !path || !description) return () => {};
 
+  const motion = createMotionController(root);
   const handlers = buttons.map((button) => {
     function selectHost() {
       if (!Object.hasOwn(NATIVE_OUTPUTS, button.dataset.host)) return;
+      if (button.getAttribute('aria-pressed') === 'true') return;
       const output = NATIVE_OUTPUTS[button.dataset.host];
 
       buttons.forEach((item) => {
@@ -40,11 +45,24 @@ export function initNativeOutputs(root) {
       label.textContent = output.label;
       path.textContent = output.path;
       description.textContent = output.description;
+      motion.play([
+        {
+          element: result,
+          frames: [
+            { transform: 'translateY(4px)', opacity: 0.4 },
+            { transform: 'translateY(0)', opacity: 1 },
+          ],
+          duration: 220,
+        },
+      ]);
     }
 
     button.addEventListener('click', selectHost);
     return () => button.removeEventListener('click', selectHost);
   });
 
-  return () => handlers.forEach((removeListener) => removeListener());
+  return () => {
+    motion.dispose();
+    handlers.forEach((removeListener) => removeListener());
+  };
 }

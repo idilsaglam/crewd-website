@@ -1,3 +1,5 @@
+import { createMotionController, onceInView } from './motion.js?v=619bc6750a4a';
+
 // These are illustrative packages from crewd.dev. This UI never executes CLI commands.
 const INSTALL_EXAMPLES = {
   agent: {
@@ -97,7 +99,6 @@ export function initInstallDemo(root) {
   if (!root) return () => {};
 
   const document = root.ownerDocument;
-  const window = document.defaultView;
   const command = root.querySelector('#hire-command');
   const crew = root.querySelector('#crew-display');
   const output = root.querySelector('#terminal-output');
@@ -107,10 +108,45 @@ export function initInstallDemo(root) {
 
   if (!command || !crew || !output || !replay) return () => {};
 
+  const motion = createMotionController(root);
   let mode = 'team';
+
+  function playInstallation() {
+    const roles = [...crew.querySelectorAll('.agent-tile')];
+    const confirmationDelay = 750 + roles.length * 180;
+    motion.play([
+      {
+        element: command,
+        frames: [{ opacity: 0 }, { opacity: 1 }],
+        duration: 350,
+      },
+      ...roles.map((element, index) => ({
+        element,
+        frames: [
+          { transform: 'translateY(14px) scale(.97)', opacity: 0 },
+          { transform: 'translateY(0) scale(1)', opacity: 1 },
+        ],
+        delay: 350 + index * 180,
+        duration: 600,
+      })),
+      ...[...output.children].map((element, index) => ({
+        element,
+        frames: [
+          { transform: 'translateY(6px)', opacity: 0 },
+          { transform: 'translateY(0)', opacity: 1 },
+        ],
+        delay: confirmationDelay + index * 180,
+        duration: 400,
+      })),
+    ]);
+  }
+
+  const stopAutoPlay = onceInView(root, playInstallation);
 
   function render(nextMode) {
     if (!Object.hasOwn(INSTALL_EXAMPLES, nextMode)) return;
+    stopAutoPlay();
+    motion.cancel();
     const example = INSTALL_EXAMPLES[nextMode];
 
     mode = nextMode;
@@ -125,6 +161,7 @@ export function initInstallDemo(root) {
     crew.classList.toggle('is-team', mode === 'team');
     crew.replaceChildren(...example.agents.map((agent) => createAgentTile(document, agent)));
     output.replaceChildren(...example.output.map((entry) => createOutputLine(document, entry)));
+    playInstallation();
   }
 
   const handlers = buttons.map((button) => {
@@ -135,21 +172,13 @@ export function initInstallDemo(root) {
 
   function replayExample() {
     render(mode);
-    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (!reducedMotion) {
-      crew.animate?.(
-        [
-          { transform: 'translateY(8px)', opacity: 0.5 },
-          { transform: 'translateY(0)', opacity: 1 },
-        ],
-        { duration: 450, easing: 'ease-out' },
-      );
-    }
   }
 
   replay.addEventListener('click', replayExample);
 
   return () => {
+    stopAutoPlay();
+    motion.dispose();
     handlers.forEach((removeListener) => removeListener());
     replay.removeEventListener('click', replayExample);
   };

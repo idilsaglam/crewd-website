@@ -71,16 +71,25 @@ test('replay preserves the current mode and respects reduced motion', (t) => {
   const { window, install } = fixture(t);
   let animations = 0;
   let reducedMotion = false;
-  window.matchMedia = () => ({ matches: reducedMotion });
-  install.querySelector('#crew-display').animate = () => animations++;
+  window.matchMedia = () => ({
+    get matches() {
+      return reducedMotion;
+    },
+  });
+  window.Element.prototype.animate = () => {
+    animations++;
+    return { finished: Promise.resolve(), cancel() {} };
+  };
   initInstallDemo(install);
   install.querySelector('[data-mode="team"]').click();
+  const beforeReplay = animations;
   install.querySelector('[data-replay]').click();
   assert.equal(install.querySelectorAll('.agent-tile').length, 4);
-  assert.equal(animations, 1);
+  assert.ok(animations > beforeReplay);
+  const afterReplay = animations;
   reducedMotion = true;
   install.querySelector('[data-replay]').click();
-  assert.equal(animations, 1);
+  assert.equal(animations, afterReplay);
 });
 
 test('install controls work when animation APIs are unavailable and detach cleanly', (t) => {
