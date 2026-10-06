@@ -20,7 +20,7 @@ test('the static document has valid IDs, in-page destinations and accessible con
   }
   for (const button of document.querySelectorAll('button')) {
     assert.ok(button.textContent.trim() || button.getAttribute('aria-label'));
-    assert.equal(button.type, 'button');
+    assert.equal(button.type, button.closest('[data-waitlist-form]') ? 'submit' : 'button');
   }
   for (const node of document.querySelectorAll('[aria-labelledby]')) {
     for (const id of node.getAttribute('aria-labelledby').split(/\s+/)) {
@@ -32,15 +32,22 @@ test('the static document has valid IDs, in-page destinations and accessible con
   }
 });
 
-test('signup links retain the real waitlist destination', (t) => {
+test('signup links lead to a labelled local preview form that stays disabled without JavaScript', (t) => {
   const dom = new JSDOM(html);
   t.after(() => dom.window.close());
   const signup = [...dom.window.document.querySelectorAll('a')].filter(
     (anchor) => anchor.textContent.trim() === 'Join the beta waitlist',
   );
-  assert.equal(signup.length, 3);
-  assert.ok(signup.every((anchor) => anchor.href === 'https://crewd.dev/#cta-title'));
-  assert.equal(dom.window.document.querySelectorAll('form').length, 0);
+  const document = dom.window.document;
+  assert.equal(signup.length, 2);
+  assert.ok(signup.every((anchor) => anchor.getAttribute('href') === '#waitlist'));
+  assert.ok(signup.every((anchor) => !anchor.hasAttribute('target')));
+  assert.equal(document.querySelectorAll('form').length, 1);
+  const form = document.querySelector('[data-waitlist-form]');
+  const email = form.querySelector('input[type="email"]');
+  assert.ok(email.required);
+  assert.ok(document.querySelector(`label[for="${email.id}"]`));
+  assert.ok(form.querySelector('[type="submit"]').disabled);
 });
 
 test('all HTML, CSS and module references resolve inside the deployable directory', async (t) => {

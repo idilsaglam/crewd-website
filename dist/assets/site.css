@@ -43,7 +43,8 @@ button:disabled {
 }
 button:focus-visible,
 a:focus-visible,
-summary:focus-visible {
+summary:focus-visible,
+input:focus-visible {
   outline: 3px solid #626bbd;
   outline-offset: 5px;
 }
@@ -1104,6 +1105,42 @@ h2 {
   font-size: 17px;
   margin-bottom: 25px;
 }
+.waitlist-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.waitlist-form input {
+  min-width: 0;
+  min-height: 50px;
+  padding: 12px 20px;
+  border: 1px solid #d4d8e4;
+  border-radius: 99px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 16px;
+}
+.waitlist-form input::placeholder {
+  color: var(--subtle);
+}
+.waitlist-form .button {
+  min-height: 50px;
+}
+.waitlist-form .button:disabled {
+  opacity: 0.55;
+  transform: none;
+}
+.waitlist-form .waitlist-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.waitlist-status:empty {
+  display: none;
+}
 .site-footer {
   max-width: 1120px;
   width: calc(100% - 80px);
@@ -1449,6 +1486,10 @@ h2 {
   }
   .closing-copy p {
     font-size: 15px;
+  }
+  .waitlist-form {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 360px;
   }
   .site-footer {
     width: calc(100% - 44px);

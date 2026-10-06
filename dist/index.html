@@ -20,9 +20,9 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111218'/%3E%3Cpath d='M16 6l3 7 7 3-7 3-3 7-3-7-7-3 7-3z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="assets/site.css?v=5d5ae8b86160" />
+    <link rel="stylesheet" href="assets/site.css?v=499e4369f7c1" />
     <link rel="stylesheet" href="assets/crew-package.css?v=d37eaa06e121" />
-    <script type="module" src="assets/main.js?v=e14ec12ebee5"></script>
+    <script type="module" src="assets/main.js?v=8092a4f60431"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -33,11 +33,7 @@
       <nav aria-label="Main navigation">
         <a href="#product">Product</a><a href="#workflow">How it works</a><a href="#faq">FAQ</a>
       </nav>
-      <a
-        class="button button-dark header-cta"
-        href="https://crewd.dev/#cta-title"
-        target="_blank"
-        rel="noopener"
+      <a class="button button-dark header-cta" href="#waitlist" data-waitlist-link
         >Join the beta waitlist</a
       >
     </header>
@@ -52,11 +48,7 @@
             Stop copying agent files between tools and projects. Install a ready-made crew, with the
             skills it needs and versions your team can share.
           </p>
-          <a
-            class="button button-dark"
-            href="https://crewd.dev/#cta-title"
-            target="_blank"
-            rel="noopener"
+          <a class="button button-dark" href="#waitlist" data-waitlist-link
             >Join the beta waitlist</a
           >
         </div>
@@ -464,18 +456,33 @@
         </div>
       </section>
 
-      <section class="closing-section" aria-labelledby="closing-title">
+      <section class="closing-section" id="waitlist" aria-labelledby="closing-title">
         <div class="closing-copy">
           <span class="eyebrow">Private beta · Launching soon</span>
           <h2 id="closing-title">Bring a crew to<br />your next project.</h2>
           <p>Join the private-beta waitlist to request early access.</p>
-          <a
-            class="button button-dark"
-            href="https://crewd.dev/#cta-title"
-            target="_blank"
-            rel="noopener"
-            >Join the beta waitlist</a
+          <form
+            class="waitlist-form"
+            id="waitlist-form"
+            data-waitlist-form
+            aria-label="Beta waitlist preview"
           >
+            <label class="sr-only" for="waitlist-email">Email address</label>
+            <input
+              type="email"
+              id="waitlist-email"
+              name="email"
+              placeholder="you@company.com"
+              autocomplete="email"
+              autocapitalize="none"
+              spellcheck="false"
+              required
+            />
+            <button type="submit" class="button button-dark" disabled>
+              Join the beta waitlist
+            </button>
+            <p class="waitlist-status" data-waitlist-status role="status" aria-atomic="true"></p>
+          </form>
         </div>
       </section>
     </main>
